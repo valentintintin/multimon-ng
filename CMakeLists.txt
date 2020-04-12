@@ -11,7 +11,7 @@ else( NOT WIN32 )
 endif( NOT WIN32 )
 
 set( TARGET "${PROJECT_NAME}" )
-set( VERSION "1.1.8" )
+set( VERSION "1.2.8" )
 set( MAJOR "1" )
 set( MINOR "1" )
 set( PATCH "8" )
@@ -121,6 +121,7 @@ set( SOURCES ${SOURCES}
 	demod_morse.c
 	demod_dumpcsv.c
 	demod_x10.c
+	demod_tone.c
 	)
 
 

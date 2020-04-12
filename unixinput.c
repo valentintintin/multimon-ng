@@ -110,6 +110,8 @@ extern int cw_threshold;
 extern bool cw_disable_auto_threshold;
 extern bool cw_disable_auto_timing;
 
+extern unsigned int tone_freq;
+
 void quit(void);
 
 /* ---------------------------------------------------------------------- */
@@ -595,6 +597,7 @@ static const char usage_str[] = "\n"
         "  -g         : CW: Gap length in ms (default: 50)\n"
         "  -x         : CW: Disable auto threshold detection\n"
         "  -y         : CW: Disable auto timing detection\n"
+        "  -T <freq>  : TONE: Frequency in Hz\n"
         "  --timestamp: Add a time stamp in front of every printed line\n"
         "  --label    : Add a label to the front of every printed line\n"
         "   Raw input requires one channel, 16 bit, signed integer (platform-native)\n"
@@ -621,7 +624,7 @@ int main(int argc, char *argv[])
         {0, 0, 0, 0}
       };
 
-    while ((c = getopt_long(argc, argv, "t:a:s:v:f:b:C:o:d:g:cqhAmrnjeuipxy", long_options, NULL)) != EOF) {
+    while ((c = getopt_long(argc, argv, "t:a:s:v:f:b:C:o:d:g:cqhAmrnjeuipxyT:", long_options, NULL)) != EOF) {
         switch (c) {
         case 'h':
         case '?':
@@ -792,18 +795,27 @@ intypefound:
             cw_disable_auto_timing = true;
             break;
             
-	case 'l':
-	    label = optarg;
-	    break;
+        case 'l':
+            label = optarg;
+            break;
+
+        case 'T':
+            tone_freq = strtoul(optarg, 0, 0);
+            if(tone_freq == 0)
+            {
+                fprintf(stderr, "Invalid frequency !\n");
+            }
+            break;
         }
     }
 
 
     if ( !quietflg )
     { // pay heed to the quietflg
-    fprintf(stderr, "multimon-ng 1.1.8\n"
+    fprintf(stderr, "multimon-ng 1.2.8\n"
         "  (C) 1996/1997 by Tom Sailer HB9JNX/AE4WA\n"
         "  (C) 2012-2019 by Elias Oenal\n"
+        "  (C) 2019-2020 by Valentin Saugnier\n"
         "Available demodulators:");
     for (i = 0; (unsigned int) i < NUMDEMOD; i++) {
         fprintf(stderr, " %s", dem[i]->name);

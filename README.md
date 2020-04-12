@@ -9,8 +9,9 @@ multimon-ng is the successor of multimon. It decodes the following digital trans
 - DTMF
 - ZVEI1 ZVEI2 ZVEI3 DZVEI PZVEI
 - EEA EIA CCIR
-- MORSE CW
+- MORSE_CW
 - X10
+- *TONE (added in this fork)*
 
 multimon-ng can be built using either qmake or CMake:
 ```
